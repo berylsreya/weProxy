@@ -1,0 +1,7 @@
+{
+  "name": "proxy server",
+  "protocol": "http",
+  "host": "localhost",
+  "port": 1912,
+  "logsPath": "./logs"
+}

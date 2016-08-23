@@ -1,0 +1,13 @@
+
+block content
+    h1= title
+    form(name="add-estimation", method="post", action="/settarget")
+        div.input
+            span.label SUBDOMAIN
+            input(type="text", name="subdomain")
+        div.input
+            span.label TARGET
+            input(type="text", name="target")
+
+        div.actions
+            input(type="submit", value="ADD")
