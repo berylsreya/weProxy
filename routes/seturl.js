@@ -8,7 +8,7 @@ var sprintf = require("sprintf-js").sprintf;
 var fs = require('fs');
 var filename = 'target.json';
 
- 
+
 router.post('/settarget', function(req, res) {
 
     var error;

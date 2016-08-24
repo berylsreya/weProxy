@@ -15,19 +15,17 @@ var http = require('http');
 var apiProxy = httpProxy.createProxyServer();
 
 
-router.all('/send', function (req, res){
+router.all('/', function (req, res){
 
     console.log(req.headers['host']);
     var targeturl;
     var rawQueryString = url.parse(req.url).query;
     var queryParams = querystring.parse(rawQueryString);
-
+    var proxyurl;
     var domain = req.headers.host,
         subDomain = domain.split('.');
-
-    if(subDomain.length > 0){
+    if(subDomain.length > 1){
         subDomain = subDomain[0];
-    }
 
     global.pool.acquire(function(err, client) {
        if (err) {
@@ -39,13 +37,18 @@ router.all('/send', function (req, res){
                 console.log(err);
                 error = err;
                 console.log("setting result : " + JSON.stringify(result) );
-                if(result == null){
+                if(result.length == 0){
                 res.status(400).json({Error: "No such subDomain"}).end();
                 }
                 else{
                 pool.release(client);
 //                apiProxy.web(req, res, { target: result[0].target });
-                var proxyurl = result[0].target+"?"+rawQueryString;
+                if(rawQueryString != null)
+                proxyurl = result[0].target+"?"+rawQueryString;
+
+                else
+                proxyurl = result[0].target;
+
                 apiProxy.web(req, res, {
                             target: proxyurl,
                             changeOrigin: true,
@@ -53,10 +56,22 @@ router.all('/send', function (req, res){
 
                            });
 
-                }
-           })
-       }
-   });
+                      }
+                })
+            }
+        });
+
+     }
+         else {
+         console.log("subd : "+subDomain);
+         res.render('index.pug',
+           { title : 'Home' }
+           );
+
+         }
+
+
 });
+
 
 module.exports = router;

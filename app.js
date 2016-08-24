@@ -93,9 +93,6 @@ app.use(tar);
 var temp = require('./routes/forward');
 app.use(temp);
 
-var temp1 = require('./routes/form');
-app.use(temp1);
-
 
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
