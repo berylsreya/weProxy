@@ -65,7 +65,8 @@ router.all('/', function (req, res){
          else {
          console.log("subd : "+subDomain);
          res.render('index.pug',
-           { title : 'Home' }
+           { title : 'Set Target',
+             title2 : 'Get Target'  }
            );
 
          }

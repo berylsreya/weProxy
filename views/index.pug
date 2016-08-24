@@ -1,6 +1,11 @@
 
+html
+    head
+        style
+          include style.css
 block content
     h1= title
+    div
     form(name="add-estimation", method="post", action="/settarget")
         div.input
             span.label SUBDOMAIN
@@ -11,3 +16,12 @@ block content
 
         div.actions
             input(type="submit", value="ADD")
+
+    h1=title2
+    form(name="add-estimation", method="post", action="/gettarget")
+        div.input
+                    span.label SUBDOMAIN
+                    input(type="text", name="subdomain")
+
+        div.actions
+                    input(type="submit", value="GET")

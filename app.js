@@ -94,6 +94,9 @@ var temp = require('./routes/forward');
 app.use(temp);
 
 
+var temp1 = require('./routes/geturl');
+app.use(temp1);
+
 if (app.get('env') === 'development') {
     app.use(function(err, req, res, next) {
         console.log("\n" + err);
