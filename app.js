@@ -17,6 +17,8 @@ var Pool = require('generic-pool').Pool;
 global.appRoot = path.resolve(__dirname);
 
 var PORT = conf.get('port');
+var username = conf.get('mysql_username');
+var pass = conf.get('mysql_password');
 var app = express();
 
 console.log(sprintf("using env: [%s]", app.get('env')));
@@ -51,8 +53,8 @@ global.pool = new Pool({
     name     : 'mysql',
     create   : function(callback) {
         var c = mysql.createConnection({
-                user: 'root',
-                password: '',
+                user: username,
+                password: pass,
                 database:'node_proxy_server'
         })
 
@@ -83,8 +85,6 @@ pool.acquire(function(err, client) {
         });
     }
 });
-
-module.export = map;
 
 
 var tar = require('./routes/seturl');

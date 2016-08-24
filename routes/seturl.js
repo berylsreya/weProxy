@@ -11,14 +11,14 @@ var filename = 'target.json';
 
 router.post('/settarget', function(req, res) {
 
+
     var error;
-    var rawQueryString = url.parse(req.url).query;
-    var queryParams = querystring.parse(rawQueryString);
     var bod = req.body;
-    console.log(sprintf("received payload: [%s]", decodeURIComponent(rawQueryString)));
+    console.log(sprintf("received payload: [%s]", req));
     var subDomain = bod.subdomain;
     var set = bod.target;
-
+    console.log(subDomain+" : "+set);
+    if(subDomain != null && set != null){
     if(subDomain in global.map){
     global.pool.acquire(function(err, client) {
         if (err) {
@@ -61,19 +61,25 @@ router.post('/settarget', function(req, res) {
 
    }
 
-var x = JSON.stringify(global.map[subDomain]);
-if(map[subDomain].localeCompare(set)==0)
-  {
-    res.status(200).json({ status : "Success",
+    var x = global.map[subDomain];
+    if(map[subDomain].localeCompare(set)==0)
+        {
+            res.status(200).json({ status : "Success",
                            Data : {SetTarget : x},
                            Error : error }).end();
                            }
-else {
-    res.status(200).json({ status : "Failed",
+    else {
+        res.status(200).json({ status : "Failed",
                            Data : {},
                            Error : error }).end();
 
-}
+    }
+} else {
+        res.status(200).json({ status : "Failed",
+                           Data : {},
+                           Error : "SubDomain or target is null." }).end();
+
+        }
 });
 
 

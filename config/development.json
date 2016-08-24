@@ -3,5 +3,7 @@
   "protocol": "http",
   "host": "localhost",
   "port": 1912,
-  "logsPath": "./logs"
+  "logsPath": "./logs",
+  "mysql_username": "root",
+  "mysql_password": ""
 }
